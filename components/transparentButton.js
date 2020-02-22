@@ -18,7 +18,7 @@ const TransparentButton = props => {
 export default TransparentButton;
 
 const Container = styled.TouchableOpacity`
-  background: ${props => props.background};
+  background: rgba(0, 0, 0, 0);
   height: 60px;
   width: 80%;
   align-items: center;
