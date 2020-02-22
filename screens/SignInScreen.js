@@ -5,7 +5,7 @@ import ColorButton from "../components/colorButton";
 import ArrowButton from "../components/arrowButton";
 import Input from "../components/formInput";
 
-export default function SignInScreen() {
+const SignInScreen = (props) => {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: ""
@@ -25,7 +25,7 @@ export default function SignInScreen() {
         <BackButton>
           <ArrowButton
             onClick={() => {
-              console.log("Arrow Back");
+              props.navigation.pop();
             }}
           />
         </BackButton>
@@ -95,3 +95,5 @@ const ButtonsWrapper = styled.View`
   bottom: 60px;
   justify-content: space-between;
 `;
+
+export default SignInScreen;

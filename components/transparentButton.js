@@ -6,7 +6,7 @@ const TransparentButton = props => {
   return (
     <Container
       onPress={() => {
-        props.onClick;
+        props.onClick();
       }}
       background={transparent}
     >

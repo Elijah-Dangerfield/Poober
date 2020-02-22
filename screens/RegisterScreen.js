@@ -4,7 +4,8 @@ import { appColor } from "../assets/colors";
 import ColorButton from "../components/colorButton";
 import ArrowButton from "../components/arrowButton";
 import Input from "../components/formInput";
-export default function RegisterScreen() {
+
+const RegisterScreen = (props) => {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -25,7 +26,7 @@ export default function RegisterScreen() {
         <BackButton>
           <ArrowButton
             onClick={() => {
-              console.log("Arrow Back");
+              props.navigation.pop();
             }}
           />
         </BackButton>
@@ -102,3 +103,5 @@ const ButtonsWrapper = styled.View`
   bottom: 60px;
   justify-content: space-between;
 `;
+
+export default RegisterScreen;
