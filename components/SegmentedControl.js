@@ -5,36 +5,35 @@ import personDark from "../assets/person_dark.png";
 import earthDark from "../assets/earth_dark.png";
 import earthLight from "../assets/earth_light.png";
 import { appColor } from "../assets/colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function SegmentedControl() {
+export default function SegmentedControl(props) {
   const [selected, setSelected] = useState({
     current: "right"
   });
 
   const selectLeft = () => {
     setSelected({ current: "left" });
+    props.onClickLeft();
   };
 
   const selectRight = () => {
     setSelected({ current: "right" });
+    props.onClickRight();
   };
   return (
     <Container>
       {selected.current === "left" ? <LeftCirlce /> : <RightCirlce />}
-      <RightButton
-        onPress={() => {
-          selectRight();
-        }}
-      >
-        <RightImage style={{ resizeMode: "contain" }} source={earthLight} />
+      <RightButton onPress={selectRight}>
+        <RightImage
+          style={{ resizeMode: "contain" }}
+          source={selected.current === "right" ? earthDark : earthLight}
+        />
       </RightButton>
-      <LeftButton
-        onPress={() => {
-          selectLeft();
-        }}
-      >
-        <LeftImage style={{ resizeMode: "contain" }} source={earthLight} />
+      <LeftButton onPress={selectLeft}>
+        <LeftImage
+          style={{ resizeMode: "contain" }}
+          source={selected.current === "left" ? personDark : personLight}
+        />
       </LeftButton>
     </Container>
   );

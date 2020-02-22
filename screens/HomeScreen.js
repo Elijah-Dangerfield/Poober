@@ -7,7 +7,14 @@ export default function HomeScreen() {
   return (
     <Container>
       <UserHeader />
-      <SegmentedControl />
+      <SegmentedControl
+        onClickRight={() => {
+          console.log("clicked right");
+        }}
+        onClickLeft={() => {
+          console.log("clicked left");
+        }}
+      />
     </Container>
   );
 }
