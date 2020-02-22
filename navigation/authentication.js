@@ -8,7 +8,7 @@ import HomeScreen from "../screens/HomeScreen";
 
 const App = createStackNavigator({
   Landing: {
-    screen: HomeScreen,
+    screen: LandingScreen,
     navigationOptions: { headerShown: false }
   },
   Register: {
