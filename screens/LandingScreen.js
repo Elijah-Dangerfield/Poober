@@ -5,7 +5,7 @@ import appIcon from "../assets/ic_toilet.png";
 import ColorButton from "../components/colorButton";
 import TransparentButton from "../components/transparentButton";
 
-export default function LandingScreen() {
+const LandingScreen = (props) => {
   return (
     <Container>
       <Header>
@@ -22,7 +22,14 @@ export default function LandingScreen() {
           color={appColor}
           text="Register"
         />
-        <TransparentButton textColor={appColor} text="Sign In" />
+        <TransparentButton 
+          onClick={() => {
+            console.log("Clicked SignIn");
+            props.navigation.navigate("SignIn");
+          }}
+          textColor={appColor} 
+          text="Sign In" 
+        />
       </ButtonsWrapper>
     </Container>
   );
@@ -61,3 +68,5 @@ const ButtonsWrapper = styled.View`
   bottom: 60px;
   justify-content: space-between;
 `;
+
+export default LandingScreen;
