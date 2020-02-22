@@ -6,30 +6,17 @@ import FriendsPins from "../components/FriendsPins";
 import WorldPins from "../components/WorldPins";
 import { Modal } from "react-native";
 import AccountView from "../components/AccountView";
+import AddFriends from "../components/AddFriends";
 
-export default function HomeScreen() {
+export default function HomeScreen(props) {
   const [selectedView, setSelectedView] = useState({
     current: "friends"
   });
-  const [showAccount, setShowAccount] = useState(false);
   return (
     <Container>
-      <Modal
-        onRequestClose={() => {
-          setShowAccount(false);
-        }}
-        animationType="slide"
-        visible={showAccount}
-      >
-        <AccountView
-          onClose={() => {
-            setShowAccount(false);
-          }}
-        />
-      </Modal>
       <UserHeader
         onClick={() => {
-          setShowAccount(true);
+          props.navigation.navigate("Modal");
         }}
       />
       <SegmentedControl

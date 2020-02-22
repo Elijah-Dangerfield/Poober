@@ -33,7 +33,7 @@ const Container = styled.TouchableOpacity`
   flex-direction: row;
   margin-bottom: 20px;
   align-items: center;
-  height: 45px;
+  height: 50px;
   width: 100%;
   background: rgba(250, 250, 255, 0.6);
   border-radius: 9px;

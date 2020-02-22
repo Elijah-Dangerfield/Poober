@@ -6,12 +6,22 @@ const AccountView = props => {
   return (
     <Container>
       <ArrowWrapper>
-        <ArrowButton onClick={props.onClose} type="arrow_down" />
+        <ArrowButton
+          onClick={() => {
+            props.navigation.pop();
+          }}
+          type="arrow_down"
+        />
       </ArrowWrapper>
       <ProfilePicture />
       <Username>John Stamos</Username>
       <Text>313 total pins</Text>
-      <FriendsSection />
+      <FriendsSection
+        onClickFind={() => {
+          console.log("Hello World");
+          props.navigation.navigate("AddFriends");
+        }}
+      />
     </Container>
   );
 };

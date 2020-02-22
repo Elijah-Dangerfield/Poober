@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { appColor } from "../assets/colors";
 import appIcon from "../assets/ic_toilet.png";
 import ColorButton from "../components/ColorButton";
-import TransparentButton from "../components/TransparentButton";
+import TransparentButton from "../components/transparentButton";
 
-const LandingScreen = (props) => {
+const LandingScreen = props => {
   return (
     <Container>
       <Header>
@@ -22,18 +22,18 @@ const LandingScreen = (props) => {
           color={appColor}
           text="Register"
         />
-        <TransparentButton 
+        <TransparentButton
           onClick={() => {
             console.log("Clicked SignIn");
             props.navigation.navigate("SignIn");
           }}
-          textColor={appColor} 
-          text="Sign In" 
+          textColor={appColor}
+          text="Sign In"
         />
       </ButtonsWrapper>
     </Container>
   );
-}
+};
 
 const Title = styled.Text`
   color: ${appColor};

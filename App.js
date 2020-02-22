@@ -1,5 +1,5 @@
 import React from "react";
-import AppNavigator from "./navigation/authentication";
+import AppNavigator from "./navigation/navigator";
 
 export default function App() {
   return <AppNavigator />;

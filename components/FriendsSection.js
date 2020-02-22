@@ -3,14 +3,14 @@ import styled from "styled-components";
 import FindFriendsButton from "./FindFriendsButton";
 import Friend from "./Friend";
 
-const FriendsSection = () => {
+const FriendsSection = props => {
   return (
     <Container>
       <SectionTitle>Friends</SectionTitle>
 
       <FindFriendsButton
         onClick={() => {
-          console.log("Clicked open friends");
+          props.onClickFind();
         }}
       />
 

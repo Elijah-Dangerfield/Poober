@@ -85,7 +85,7 @@ const RightImage = styled.Image`
 `;
 
 const Container = styled.View`
-  width: 122px;
+  width: 120px;
   height: 44px;
   background: rgba(0, 0, 0, 0);
   border-radius: 22px;
@@ -93,5 +93,5 @@ const Container = styled.View`
   margin: 20px;
   align-items: center;
   flex-direction: row;
-  padding: 0;
+  padding: 0px;
 `;
