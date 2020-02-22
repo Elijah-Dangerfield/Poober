@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { appColor } from "../assets/colors";
 import appIcon from "../assets/ic_toilet.png";
-import ColorButton from "../components/colorButton";
-import TransparentButton from "../components/transparentButton";
+import ColorButton from "../components/ColorButton";
+import TransparentButton from "../components/TransparentButton";
 
 export default function LandingScreen() {
   return (

@@ -8,7 +8,7 @@ import { appColor } from "../assets/colors";
 
 export default function SegmentedControl(props) {
   const [selected, setSelected] = useState({
-    current: "right"
+    current: props.selected
   });
 
   const selectLeft = () => {

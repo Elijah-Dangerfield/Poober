@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-export default function UserHeader() {
+export default function UserHeader(props) {
   return (
-    <Header>
-      <ProfilePicture />
-      <UserTextWrapper>
-        <Username>John Stamos</Username>
-        <Status>Last pooped: yesterday</Status>
-      </UserTextWrapper>
-    </Header>
+    <TouchableWrapper onPress={props.onClick}>
+      <Header>
+        <ProfilePicture />
+        <UserTextWrapper>
+          <Username>John Stamos</Username>
+          <Status>Last pooped: yesterday</Status>
+        </UserTextWrapper>
+      </Header>
+    </TouchableWrapper>
   );
 }
 
+const TouchableWrapper = styled.TouchableOpacity`
+  width: 100%;
+`;
 const Username = styled.Text`
   font-size: 20px;
   font-weight: 600;
