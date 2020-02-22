@@ -9,7 +9,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function SegmentedControl() {
   const [selected, setSelected] = useState({
-    current: "left"
+    current: "right"
   });
 
   const selectLeft = () => {
@@ -21,11 +21,7 @@ export default function SegmentedControl() {
   };
   return (
     <Container>
-      {selected.current == "left" ? (
-        <Cirlce left="8px" />
-      ) : (
-        <Cirlce right="8px" />
-      )}
+      {selected.current === "left" ? <LeftCirlce /> : <RightCirlce />}
       <RightButton
         onPress={() => {
           selectRight();
@@ -59,18 +55,21 @@ const LeftButton = styled.TouchableOpacity`
   position: absolute;
   left: 8px;
 `;
-const Cirlce = styled.View`
+const LeftCirlce = styled.View`
   background: ${appColor};
   height: 38px;
   width: 38px;
   border-radius: 19px;
   position: absolute;
-  left: ${props => {
-    return props.left ? props.left : 0;
-  }};
-  right: ${props => {
-    return props.right ? props.right : 0;
-  }};
+  left: 8px;
+`;
+const RightCirlce = styled.View`
+  background: ${appColor};
+  height: 38px;
+  width: 38px;
+  border-radius: 19px;
+  position: absolute;
+  right: 8px;
 `;
 const LeftImage = styled.Image`
   height: 38px;
