@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { appColor } from "../assets/colors";
-import ColorButton from "../components/colorButton";
-import ArrowButton from "../components/arrowButton";
-import Input from "../components/formInput";
+import ColorButton from "../components/ColorButton";
+import ArrowButton from "../components/ArrowButton";
+import Input from "../components/FormInput";
 
-const RegisterScreen = (props) => {
+const RegisterScreen = props => {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -68,7 +68,7 @@ const RegisterScreen = (props) => {
       </ButtonsWrapper>
     </Container>
   );
-}
+};
 
 const AppName = styled.Text`
   color: ${appColor};
