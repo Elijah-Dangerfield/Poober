@@ -1,4 +1,4 @@
-import { transparent } from "../assets/colors";
+import { transparent } from "../constants/colors";
 import styled from "styled-components";
 import React from "react";
 

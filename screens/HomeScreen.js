@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import { StatusBar } from "react-native";
 import styled from "styled-components";
 import UserHeader from "../components/UserHeader";
 import SegmentedControl from "../components/SegmentedControl";
 import FriendsPins from "../components/FriendsPins";
 import WorldPins from "../components/WorldPins";
-import { Modal } from "react-native";
-import AccountView from "../components/AccountView";
-import AddFriends from "../components/AddFriends";
 
 export default function HomeScreen(props) {
   const [selectedView, setSelectedView] = useState({
     current: "friends"
   });
+  StatusBar.setBarStyle("dark-content", true);
+
   return (
     <Container>
       <UserHeader

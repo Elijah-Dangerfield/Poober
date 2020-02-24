@@ -4,7 +4,7 @@ import personLight from "../assets/person_light.png";
 import personDark from "../assets/person_dark.png";
 import earthDark from "../assets/earth_dark.png";
 import earthLight from "../assets/earth_light.png";
-import { appColor } from "../assets/colors";
+import { appColor } from "../constants/colors";
 
 export default function SegmentedControl(props) {
   const [selected, setSelected] = useState({

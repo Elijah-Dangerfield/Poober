@@ -1,22 +1,42 @@
 import React, { useState } from "react";
+import { Keyboard } from "react-native";
 import styled from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const SearchView = props => {
-  const [showCancel, setShowCancel] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const cancel = () => (
+  const cancelButton = isEditing ? (
     <TouchableOpacity
       onPress={() => {
-        setSearchTerm("");
-        setShowCancel(false);
+        Keyboard.dismiss();
       }}
     >
       <Text>Cancel</Text>
     </TouchableOpacity>
+  ) : (
+    <></>
   );
+
+  const clearButton =
+    searchTerm.length > 0 ? (
+      <TouchableOpacity
+        onPress={() => {
+          setSearchTerm("");
+        }}
+      >
+        <Ionicons name="md-close" size={28} color="grey" />
+      </TouchableOpacity>
+    ) : (
+      <></>
+    );
+
+  const searchIcon = !isEditing ? (
+    <Ionicons name="md-search" size={28} color="black" />
+  ) : null;
+
   return (
     <Container>
       <InputWrapper
@@ -30,19 +50,22 @@ const SearchView = props => {
           shadowOpacity: 0.25
         }}
       >
-        <Ionicons name="md-search" size={28} color="black" />
-
+        {searchIcon}
         <Input
+          onBlur={() => {
+            setIsEditing(false);
+          }}
+          onFocus={() => {
+            setIsEditing(true);
+          }}
           value={searchTerm}
           secureTextEntry={props.password ? true : false}
-          onChangeText={text => {
-            setShowCancel(text.length > 0);
-            setSearchTerm(text);
-          }}
+          onChangeText={setSearchTerm}
           placeholder={props.hint}
         />
+        {clearButton}
       </InputWrapper>
-      {showCancel ? cancel() : null}
+      {cancelButton}
     </Container>
   );
 };
@@ -53,15 +76,14 @@ const Container = styled.View`
   align-items: center;
   margin-top: 20px;
 `;
-const Cancel = styled.TouchableOpacity`
-  flex: 1;
-`;
 const Text = styled.Text`
   margin: 5px;
 `;
 const Input = styled.TextInput`
   font-size: 18px;
   margin-left: 10px;
+  flex-shrink: 1;
+  width: 100%;
 `;
 
 const InputWrapper = styled.View`
@@ -69,4 +91,6 @@ const InputWrapper = styled.View`
   width: 100%;
   border-radius: 5px;
   flex: 7;
+  flex-direction: row;
+  background: blue;
 `;

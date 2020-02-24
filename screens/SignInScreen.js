@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { appColor } from "../assets/colors";
+import { appColor } from "../constants/colors";
 import ColorButton from "../components/ColorButton";
 import ArrowButton from "../components/ArrowButton";
 import Input from "../components/FormInput";
+import { signin } from "../api/user";
 
-const SignInScreen = (props) => {
+const SignInScreen = props => {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: ""
@@ -16,8 +17,36 @@ const SignInScreen = (props) => {
     password: ""
   });
 
+  const [loading, setLoading] = useState(false);
+
+  function hasErrors() {
+    if (userInfo.email.trim() === "") {
+      setErrors({ ...errors, email: "email can not be blank" });
+      return true;
+    }
+    if (userInfo.password.trim() === "") {
+      setErrors({ ...errors, password: "password cannot be blank" });
+      return true;
+    }
+
+    return false;
+  }
   function handleSignInClick() {
-    setErrors({ ...errors, confirm: "Password wrong" });
+    if (!hasErrors()) {
+      setLoading(true);
+      signin({
+        email: userInfo.email.trim(),
+        password: userInfo.password.trim()
+      })
+        .then(() => {
+          setLoading(false);
+          props.navigation.navigate("Home");
+        })
+        .catch(error => {
+          setLoading(false);
+          setSnackbar(error.message);
+        });
+    }
   }
   return (
     <Container>
@@ -54,13 +83,15 @@ const SignInScreen = (props) => {
           onClick={() => {
             handleSignInClick();
           }}
+          loading={loading}
           color={appColor}
           text="Sign In"
         />
       </ButtonsWrapper>
     </Container>
   );
-}
+};
+export default SignInScreen;
 
 const AppName = styled.Text`
   color: ${appColor};
@@ -95,5 +126,3 @@ const ButtonsWrapper = styled.View`
   bottom: 60px;
   justify-content: space-between;
 `;
-
-export default SignInScreen;

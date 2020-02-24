@@ -35,7 +35,7 @@ const Container = styled.TouchableOpacity`
   align-items: center;
   height: 50px;
   width: 100%;
-  background: rgba(250, 250, 255, 0.6);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 9px;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
 `;

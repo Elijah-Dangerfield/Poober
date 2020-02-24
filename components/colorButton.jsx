@@ -1,15 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import { ActivityIndicator } from "react-native-paper";
 
 const ColorButton = props => {
   return (
     <Container
+      disabled={props.loading}
       onPress={() => {
         props.onClick();
       }}
       background={props.color}
     >
-      <Text>{props.text}</Text>
+      {props.loading ? null : <Text>{props.text}</Text>}
+      {props.loading ? (
+        <ActivityIndicator animating={props.loading} color={"white"} />
+      ) : null}
     </Container>
   );
 };

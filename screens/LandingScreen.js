@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { appColor } from "../assets/colors";
+import { appColor } from "../constants/colors";
 import appIcon from "../assets/ic_toilet.png";
 import ColorButton from "../components/ColorButton";
-import TransparentButton from "../components/transparentButton";
-
+import TransparentButton from "../components/TransparentButton";
+import * as firebase from "firebase";
 const LandingScreen = props => {
   return (
     <Container>

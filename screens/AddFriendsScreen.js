@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ArrowButton from "../components/ArrowButton";
-import FriendsSection from "./FriendsSection";
+import SearchView from "../components/SearchView";
 
-import SearchView from "./SearchView";
 const AddFriends = props => {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <Container>
       <Header>
@@ -18,6 +18,7 @@ const AddFriends = props => {
         <Title>Add Friends</Title>
       </Header>
       <SearchView hint="Search for people" />
+
       <Content>
         <SectionTitle>Quick Add</SectionTitle>
       </Content>

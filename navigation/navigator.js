@@ -5,18 +5,16 @@ import LandingScreen from "../screens/LandingScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import SignInScreen from "../screens/SignInScreen";
 import HomeScreen from "../screens/HomeScreen";
-import AccountScreen from "../components/AccountView";
-import AddFriendsScreen from "../components/AddFriends";
+import AccountScreen from "../screens/AccountScreen";
+import AddFriendsScreen from "../screens/AddFriendsScreen";
+import LoadingScreen from "../screens/LoadingScreen";
 
-const Main = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: { headerShown: false }
-  },
+const Auth = createStackNavigator({
   Landing: {
     screen: LandingScreen,
     navigationOptions: { headerShown: false }
   },
+
   Register: {
     screen: RegisterScreen,
     navigationOptions: { headerShown: false }
@@ -38,10 +36,10 @@ const Modal = createStackNavigator({
   }
 });
 
-const Navigator = createStackNavigator(
+const Main = createStackNavigator(
   {
-    Main: {
-      screen: Main,
+    Home: {
+      screen: HomeScreen,
       navigationOptions: { headerShown: false }
     },
     Modal: {
@@ -54,4 +52,19 @@ const Navigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(Navigator);
+const AppNavigator = createSwitchNavigator({
+  Loading: {
+    screen: LoadingScreen,
+    navigationOptions: { headerShown: false }
+  },
+  Auth: {
+    screen: Auth,
+    navigationOptions: { headerShown: false }
+  },
+  Main: {
+    screen: Main,
+    navigationOptions: { headerShown: false }
+  }
+});
+
+export default createAppContainer(AppNavigator);
