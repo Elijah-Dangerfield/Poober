@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { StatusBar } from "react-native";
 import styled from "styled-components";
 import { appColor } from "../constants/colors";
 import ColorButton from "../components/ColorButton";
@@ -6,8 +7,10 @@ import ArrowButton from "../components/ArrowButton";
 import Input from "../components/FormInput";
 import { signup } from "../api/user";
 import { Snackbar } from "react-native-paper";
-import { ScrollView } from "react-native-gesture-handler";
+
 const RegisterScreen = props => {
+  StatusBar.setBarStyle("dark-content", true);
+
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -84,18 +87,20 @@ const RegisterScreen = props => {
     }
   }
   return (
-    <Container>
+    <Container
+      paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
+    >
+      <Header>
+        <BackButton>
+          <ArrowButton
+            onClick={() => {
+              props.navigation.pop();
+            }}
+          />
+        </BackButton>
+        <AppName>Register</AppName>
+      </Header>
       <Content>
-        <Header>
-          <BackButton>
-            <ArrowButton
-              onClick={() => {
-                props.navigation.pop();
-              }}
-            />
-          </BackButton>
-          <AppName>Register</AppName>
-        </Header>
         <Input
           hint="Choose a display name"
           title="Name"
@@ -161,6 +166,7 @@ const RegisterScreen = props => {
 const Content = styled.ScrollView`
   width: 100%;
 `;
+
 const AppName = styled.Text`
   color: ${appColor};
   font-size: 32px;
@@ -183,6 +189,7 @@ const Header = styled.View`
 const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
+  padding-top: ${props => props.paddingTop};
 `;
 
 const ButtonsWrapper = styled.View`

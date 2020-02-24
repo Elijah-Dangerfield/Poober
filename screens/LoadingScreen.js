@@ -4,8 +4,11 @@ import { appColor } from "../constants/colors";
 import appIcon from "../assets/ic_toilet.png";
 import * as firebase from "firebase";
 import { ActivityIndicator } from "react-native-paper";
+import { StatusBar } from "react-native";
 
 const LoadingScreen = props => {
+  StatusBar.setBarStyle("dark-content", true);
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       props.navigation.navigate(user ? "Main" : "Auth");

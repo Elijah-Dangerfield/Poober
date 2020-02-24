@@ -4,13 +4,15 @@ import addFriends from "../assets/icon_add_friends.png";
 import ArrowButton from "./ArrowButton";
 const FindFriendsButton = props => {
   return (
-    <Container onPress={props.onClick}>
-      <Icon style={{ resizeMode: "contain" }} source={addFriends} />
-      <Text>Find Friends</Text>
-      <ArrowWrapper>
-        <ArrowButton size={28} type="arrow_forward" />
-      </ArrowWrapper>
-    </Container>
+    <ButtonWrapper onPress={props.onClick}>
+      <Container>
+        <Icon style={{ resizeMode: "contain" }} source={addFriends} />
+        <Text>Find Friends</Text>
+        <ArrowWrapper>
+          <ArrowButton size={28} type="arrow_forward" />
+        </ArrowWrapper>
+      </Container>
+    </ButtonWrapper>
   );
 };
 
@@ -29,13 +31,16 @@ const Text = styled.Text`
   font-size: 16px;
   margin-left: 20px;
 `;
-const Container = styled.TouchableOpacity`
+
+const ButtonWrapper = styled.TouchableOpacity``;
+const Container = styled.View`
   flex-direction: row;
   margin-bottom: 20px;
   align-items: center;
   height: 50px;
   width: 100%;
-  background: rgba(0, 0, 0, 0.05);
+  background: white;
   border-radius: 9px;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+  elevation: 5;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
 `;

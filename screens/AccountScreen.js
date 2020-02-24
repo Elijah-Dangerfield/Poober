@@ -4,13 +4,19 @@ import ArrowButton from "../components/ArrowButton";
 import FriendsSection from "../components/FriendsSection";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { signout } from "../api/user";
+import { StatusBar } from "react-native";
+
 const AccountView = props => {
+  StatusBar.setBarStyle("dark-content", true);
+
   const handleSignOut = () => {
     signout();
     props.navigation.navigate("Loading");
   };
   return (
-    <Container>
+    <Container
+      paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
+    >
       <ArrowWrapper>
         <ArrowButton
           onClick={() => {
@@ -19,7 +25,7 @@ const AccountView = props => {
           type="arrow_down"
         />
         <TouchableOpacity onPress={handleSignOut}>
-          <Text style={{ color: "red" }}>Sign Out</Text>
+          <Signout>Sign Out</Signout>
         </TouchableOpacity>
       </ArrowWrapper>
       <Content>
@@ -46,11 +52,12 @@ const Content = styled.ScrollView`
   padding: 20px;
 `;
 const Username = styled.Text`
-  font-weight: 600;
+  font-weight: bold;
   font-size: 22px;
 `;
 
 const Container = styled.SafeAreaView`
+  padding-top: ${props => props.paddingTop};
   flex: 1;
   flex-direction: column;
   align-items: center;
@@ -72,7 +79,11 @@ const ArrowWrapper = styled.View`
 const Text = styled.Text`
   color: grey;
 `;
-
+const Signout = styled.Text`
+  color: red;
+  font-weight: normal;
+  font-size: 18px;
+`;
 const ProfilePicture = styled.Image`
   width: 62px;
   height: 62px;

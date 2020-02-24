@@ -27,7 +27,7 @@ const SearchView = props => {
           setSearchTerm("");
         }}
       >
-        <Ionicons name="md-close" size={28} color="grey" />
+        <Ionicons name="md-close" size={22} color="grey" />
       </TouchableOpacity>
     ) : (
       <></>
@@ -47,7 +47,8 @@ const SearchView = props => {
           backgroundColor: "white",
           shadowOffset: { width: 0, height: 0 },
           shadowColor: "black",
-          shadowOpacity: 0.25
+          shadowOpacity: 0.25,
+          elevation: 5
         }}
       >
         {searchIcon}

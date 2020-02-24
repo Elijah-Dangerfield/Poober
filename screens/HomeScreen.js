@@ -13,7 +13,9 @@ export default function HomeScreen(props) {
   StatusBar.setBarStyle("dark-content", true);
 
   return (
-    <Container>
+    <Container
+      paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
+    >
       <UserHeader
         onClick={() => {
           props.navigation.navigate("Modal");
@@ -36,4 +38,5 @@ export default function HomeScreen(props) {
 const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
+  padding-top: ${props => props.paddingTop};
 `;

@@ -19,7 +19,7 @@ const TouchableWrapper = styled.TouchableOpacity`
 `;
 const Username = styled.Text`
   font-size: 20px;
-  font-weight: 600;
+  font-weight: bold;
 `;
 const UserTextWrapper = styled.View``;
 const Status = styled.Text`

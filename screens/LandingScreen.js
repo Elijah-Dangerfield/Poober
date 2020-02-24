@@ -5,7 +5,10 @@ import appIcon from "../assets/ic_toilet.png";
 import ColorButton from "../components/ColorButton";
 import TransparentButton from "../components/TransparentButton";
 import * as firebase from "firebase";
+import { StatusBar } from "react-native";
 const LandingScreen = props => {
+  StatusBar.setBarStyle("dark-content", true);
+
   return (
     <Container>
       <Header>

@@ -5,9 +5,13 @@ import ColorButton from "../components/ColorButton";
 import ArrowButton from "../components/ArrowButton";
 import Input from "../components/FormInput";
 import { signin } from "../api/user";
-import { ScrollView } from "react-native-gesture-handler";
+import { StatusBar } from "react-native";
+import { Snackbar } from "react-native-paper";
 
 const SignInScreen = props => {
+  StatusBar.setBarStyle("dark-content", true);
+  const [snackbar, setSnackbar] = useState("");
+
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: ""
@@ -50,23 +54,27 @@ const SignInScreen = props => {
     }
   }
   return (
-    <Container>
+    <Container
+      paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
+    >
+      <Header>
+        <BackButton>
+          <ArrowButton
+            onClick={() => {
+              props.navigation.pop();
+            }}
+          />
+        </BackButton>
+        <AppName>Sign In</AppName>
+      </Header>
       <Content>
-        <Header>
-          <BackButton>
-            <ArrowButton
-              onClick={() => {
-                props.navigation.pop();
-              }}
-            />
-          </BackButton>
-          <AppName>Sign In</AppName>
-        </Header>
         <Input
           hint="Enter email"
           title="Email"
           error={errors.email}
           onChangeText={text => {
+            setErrors({ ...errors, email: "" });
+
             setUserInfo({ ...userInfo, email: text });
           }}
         />
@@ -76,6 +84,8 @@ const SignInScreen = props => {
           password={true}
           error={errors.password}
           onChangeText={text => {
+            setErrors({ ...errors, password: "" });
+
             setUserInfo({ ...userInfo, password: text });
           }}
         />
@@ -91,6 +101,15 @@ const SignInScreen = props => {
           text="Sign In"
         />
       </ButtonsWrapper>
+      <Snackbar
+        visible={snackbar.length > 0}
+        duration={3000}
+        onDismiss={() => {
+          setSnackbar("");
+        }}
+      >
+        {snackbar}
+      </Snackbar>
     </Container>
   );
 };
@@ -121,6 +140,7 @@ const Header = styled.View`
 const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
+  padding-top: ${props => props.paddingTop};
 `;
 
 const ButtonsWrapper = styled.View`

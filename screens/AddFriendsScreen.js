@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ArrowButton from "../components/ArrowButton";
 import SearchView from "../components/SearchView";
+import { StatusBar } from "react-native";
 
 const AddFriends = props => {
   const [searchTerm, setSearchTerm] = useState("");
+  StatusBar.setBarStyle("dark-content", true);
+
   return (
-    <Container>
+    <Container
+      paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
+    >
       <Header>
         <BackButton>
           <ArrowButton
@@ -44,6 +49,7 @@ const SectionTitle = styled.Text`
 `;
 
 const Container = styled.SafeAreaView`
+  padding-top: ${props => props.paddingTop};
   flex: 1;
   flex-direction: column;
   align-items: center;
