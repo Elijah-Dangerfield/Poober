@@ -13,4 +13,6 @@ export function signup({ email, password, displayName }) {
     });
 }
 
-export function signout() {}
+export function signout() {
+  firebase.auth().signOut();
+}

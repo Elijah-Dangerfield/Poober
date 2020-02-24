@@ -6,6 +6,7 @@ import ArrowButton from "../components/ArrowButton";
 import Input from "../components/FormInput";
 import { signup } from "../api/user";
 import { Snackbar } from "react-native-paper";
+import { ScrollView } from "react-native-gesture-handler";
 const RegisterScreen = props => {
   const [userInfo, setUserInfo] = useState({
     email: "",

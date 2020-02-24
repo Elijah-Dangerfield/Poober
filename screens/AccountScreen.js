@@ -2,7 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import ArrowButton from "../components/ArrowButton";
 import FriendsSection from "../components/FriendsSection";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { signout } from "../api/user";
 const AccountView = props => {
+  const handleSignOut = () => {
+    signout();
+    props.navigation.navigate("Loading");
+  };
   return (
     <Container>
       <ArrowWrapper>
@@ -12,6 +18,9 @@ const AccountView = props => {
           }}
           type="arrow_down"
         />
+        <TouchableOpacity onPress={handleSignOut}>
+          <Text style={{ color: "red" }}>Sign Out</Text>
+        </TouchableOpacity>
       </ArrowWrapper>
       <Content>
         <ProfileWrapper>
@@ -53,8 +62,12 @@ const ProfileWrapper = styled.View`
   align-items: center;
 `;
 const ArrowWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  margin-left: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
 `;
 const Text = styled.Text`
   color: grey;
