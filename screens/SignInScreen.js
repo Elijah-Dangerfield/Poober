@@ -5,6 +5,7 @@ import ColorButton from "../components/ColorButton";
 import ArrowButton from "../components/ArrowButton";
 import Input from "../components/FormInput";
 import { signin } from "../api/user";
+import { ScrollView } from "react-native-gesture-handler";
 
 const SignInScreen = props => {
   const [userInfo, setUserInfo] = useState({
@@ -50,33 +51,35 @@ const SignInScreen = props => {
   }
   return (
     <Container>
-      <Header>
-        <BackButton>
-          <ArrowButton
-            onClick={() => {
-              props.navigation.pop();
-            }}
-          />
-        </BackButton>
-        <AppName>Sign In</AppName>
-      </Header>
-      <Input
-        hint="Enter email"
-        title="Email"
-        error={errors.email}
-        onChangeText={text => {
-          setUserInfo({ ...userInfo, email: text });
-        }}
-      />
-      <Input
-        hint="Enter password"
-        title="Password"
-        password={true}
-        error={errors.password}
-        onChangeText={text => {
-          setUserInfo({ ...userInfo, password: text });
-        }}
-      />
+      <Content>
+        <Header>
+          <BackButton>
+            <ArrowButton
+              onClick={() => {
+                props.navigation.pop();
+              }}
+            />
+          </BackButton>
+          <AppName>Sign In</AppName>
+        </Header>
+        <Input
+          hint="Enter email"
+          title="Email"
+          error={errors.email}
+          onChangeText={text => {
+            setUserInfo({ ...userInfo, email: text });
+          }}
+        />
+        <Input
+          hint="Enter password"
+          title="Password"
+          password={true}
+          error={errors.password}
+          onChangeText={text => {
+            setUserInfo({ ...userInfo, password: text });
+          }}
+        />
+      </Content>
 
       <ButtonsWrapper>
         <ColorButton
@@ -93,6 +96,9 @@ const SignInScreen = props => {
 };
 export default SignInScreen;
 
+const Content = styled.ScrollView`
+  width: 100%;
+`;
 const AppName = styled.Text`
   color: ${appColor};
   font-size: 32px;
@@ -123,6 +129,6 @@ const ButtonsWrapper = styled.View`
   align-items: center;
   align-self: flex-end;
   position: absolute;
-  bottom: 60px;
+  bottom: 35px;
   justify-content: space-between;
 `;

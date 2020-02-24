@@ -85,53 +85,55 @@ const RegisterScreen = props => {
   }
   return (
     <Container>
-      <Header>
-        <BackButton>
-          <ArrowButton
-            onClick={() => {
-              props.navigation.pop();
-            }}
-          />
-        </BackButton>
-        <AppName>Register</AppName>
-      </Header>
-      <Input
-        hint="Choose a display name"
-        title="Name"
-        error={errors.name}
-        onChangeText={text => {
-          setErrors({ ...errors, name: "" });
-          setUserInfo({ ...userInfo, name: text });
-        }}
-      />
-      <Input
-        hint="Enter your email"
-        title="Email"
-        error={errors.email}
-        onChangeText={text => {
-          setErrors({ ...errors, email: "" });
-          setUserInfo({ ...userInfo, email: text });
-        }}
-      />
-      <Input
-        hint="Create a password"
-        title="Password"
-        error={errors.password}
-        password={true}
-        onChangeText={text => {
-          setErrors({ ...errors, password: "" });
-          setUserInfo({ ...userInfo, password: text });
-        }}
-      />
-      <Input
-        hint="Confirm password"
-        password={true}
-        error={errors.confirmPassword}
-        onChangeText={text => {
-          setErrors({ ...errors, confirmPassword: "" });
-          setUserInfo({ ...userInfo, confirmPassword: text });
-        }}
-      />
+      <Content>
+        <Header>
+          <BackButton>
+            <ArrowButton
+              onClick={() => {
+                props.navigation.pop();
+              }}
+            />
+          </BackButton>
+          <AppName>Register</AppName>
+        </Header>
+        <Input
+          hint="Choose a display name"
+          title="Name"
+          error={errors.name}
+          onChangeText={text => {
+            setErrors({ ...errors, name: "" });
+            setUserInfo({ ...userInfo, name: text });
+          }}
+        />
+        <Input
+          hint="Enter your email"
+          title="Email"
+          error={errors.email}
+          onChangeText={text => {
+            setErrors({ ...errors, email: "" });
+            setUserInfo({ ...userInfo, email: text });
+          }}
+        />
+        <Input
+          hint="Create a password"
+          title="Password"
+          error={errors.password}
+          password={true}
+          onChangeText={text => {
+            setErrors({ ...errors, password: "" });
+            setUserInfo({ ...userInfo, password: text });
+          }}
+        />
+        <Input
+          hint="Confirm password"
+          password={true}
+          error={errors.confirmPassword}
+          onChangeText={text => {
+            setErrors({ ...errors, confirmPassword: "" });
+            setUserInfo({ ...userInfo, confirmPassword: text });
+          }}
+        />
+      </Content>
 
       <ButtonsWrapper>
         <ColorButton
@@ -156,6 +158,9 @@ const RegisterScreen = props => {
   );
 };
 
+const Content = styled.ScrollView`
+  width: 100%;
+`;
 const AppName = styled.Text`
   color: ${appColor};
   font-size: 32px;
@@ -186,7 +191,7 @@ const ButtonsWrapper = styled.View`
   align-items: center;
   align-self: flex-end;
   position: absolute;
-  bottom: 60px;
+  bottom: 35px;
   justify-content: space-between;
 `;
 
