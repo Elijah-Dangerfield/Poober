@@ -73,7 +73,7 @@ const AccountView = props => {
 
         <FriendsSection
           onClickFind={() => {
-            props.navigation.navigate("AddFriends");
+            props.navigation.navigate("AddFriends", { arrow: "arrow_back" });
           }}
         />
         <DeleteAccountButtonWrapper>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ColorButton from "./ColorButton";
 import { appColor } from "../constants/colors";
-const FriendsPins = () => {
+const FriendsPins = props => {
   return (
     <Container>
       <Text>Add friends to see where they drop their pins</Text>
@@ -11,7 +11,9 @@ const FriendsPins = () => {
           text="Find Friends"
           loading={false}
           color={appColor}
-          onClick={() => {}}
+          onClick={() => {
+            props.navigateToFriends();
+          }}
         />
       </AddFriendsButton>
     </Container>

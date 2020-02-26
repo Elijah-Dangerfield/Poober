@@ -45,6 +45,10 @@ const Main = createStackNavigator(
     Modal: {
       screen: Modal,
       navigationOptions: { headerShown: false }
+    },
+    AddFriends: {
+      screen: AddFriendsScreen,
+      navigationOptions: { headerShown: false }
     }
   },
   {

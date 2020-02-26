@@ -8,6 +8,7 @@ const AddFriends = props => {
   const [searchTerm, setSearchTerm] = useState("");
   StatusBar.setBarStyle("dark-content", true);
 
+  const { arrow } = props.navigation.state.params;
   return (
     <Container
       paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
@@ -15,6 +16,7 @@ const AddFriends = props => {
       <Header>
         <BackButton>
           <ArrowButton
+            type={arrow ? arrow : "arrow_back"}
             onClick={() => {
               props.navigation.pop();
             }}

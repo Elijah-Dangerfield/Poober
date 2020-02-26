@@ -76,7 +76,12 @@ const HomeScreen = props => {
           }
         }}
       >
-        <FriendsPins key="0" />
+        <FriendsPins
+          key="0"
+          navigateToFriends={() => {
+            props.navigation.push("AddFriends", { arrow: "arrow_down" });
+          }}
+        />
         <WorldPins key="1" />
       </Pager>
     </Container>
