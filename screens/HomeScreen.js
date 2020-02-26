@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { StatusBar } from "react-native";
 import styled from "styled-components";
 import UserHeader from "../components/UserHeader";
@@ -76,13 +76,16 @@ const HomeScreen = props => {
           }
         }}
       >
-        <FriendsPins
-          key="0"
-          navigateToFriends={() => {
-            props.navigation.push("AddFriends", { arrow: "arrow_down" });
-          }}
-        />
-        <WorldPins key="1" />
+        <View key="0">
+          <FriendsPins
+            navigateToFriends={() => {
+              props.navigation.push("AddFriends", { arrow: "arrow_down" });
+            }}
+          />
+        </View>
+        <View key="1">
+          <WorldPins key="1" />
+        </View>
       </Pager>
     </Container>
   );
