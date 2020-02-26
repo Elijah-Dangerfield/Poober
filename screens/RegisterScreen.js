@@ -73,7 +73,8 @@ const RegisterScreen = props => {
       setLoading(true);
       signup({
         email: userInfo.email.trim(),
-        password: userInfo.password.trim()
+        password: userInfo.password.trim(),
+        displayName: userInfo.name.trim()
       })
         .then(() => {
           setLoading(false);

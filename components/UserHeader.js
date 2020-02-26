@@ -6,7 +6,7 @@ export default function UserHeader(props) {
       <Header>
         <ProfilePicture />
         <UserTextWrapper>
-          <Username>John Stamos</Username>
+          <Username>{props.displayName}</Username>
           <Status>Last pooped: yesterday</Status>
         </UserTextWrapper>
       </Header>

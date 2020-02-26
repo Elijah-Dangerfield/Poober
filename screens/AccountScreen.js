@@ -1,18 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ArrowButton from "../components/ArrowButton";
 import FriendsSection from "../components/FriendsSection";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { signout } from "../api/user";
 import { StatusBar } from "react-native";
+import { connect } from "react-redux";
+import ColorButton from "../components/ColorButton";
+import * as user from "../api/user";
+import { Snackbar } from "react-native-paper";
 
+const mapStateToProps = state => {
+  return {
+    displayName: state.displayName,
+    removeUserListener: state.removeUserListener
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
 const AccountView = props => {
   StatusBar.setBarStyle("dark-content", true);
+
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState("");
 
   const handleSignOut = () => {
     signout();
     props.navigation.navigate("Loading");
   };
+
+  const handleDeleteAccountClick = () => {
+    setDeleteLoading(true);
+
+    user
+      .deleteAccount()
+      .then(() => {
+        props.removeUserListener();
+
+        setDeleteLoading(false);
+        props.navigation.popToTop();
+      })
+      .catch(error => {
+        setDeleteLoading(false);
+        setSnackbar(error.message);
+      });
+  };
+
   return (
     <Container
       paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
@@ -25,27 +60,45 @@ const AccountView = props => {
           type="arrow_down"
         />
         <TouchableOpacity onPress={handleSignOut}>
-          <Signout>Sign Out</Signout>
+          <RedText>Sign Out</RedText>
         </TouchableOpacity>
       </ArrowWrapper>
       <Content>
         <ProfileWrapper>
           <ProfilePicture />
-          <Username>John Stamos</Username>
+          <Username>{props.displayName}</Username>
           <Text>313 total pins</Text>
         </ProfileWrapper>
 
         <FriendsSection
           onClickFind={() => {
-            console.log("Hello World");
             props.navigation.navigate("AddFriends");
           }}
         />
+        <DeleteAccountButtonWrapper>
+          <ColorButton
+            text="DELETE ACCOUNT"
+            loading={deleteLoading}
+            color="red"
+            onClick={() => {
+              handleDeleteAccountClick();
+            }}
+          />
+        </DeleteAccountButtonWrapper>
       </Content>
+      <Snackbar
+        visible={snackbar.length > 0}
+        duration={4000}
+        onDismiss={() => {
+          setSnackbar("");
+        }}
+      >
+        {snackbar}
+      </Snackbar>
     </Container>
   );
 };
-export default AccountView;
+export default connect(mapStateToProps, mapDispatchToProps)(AccountView);
 
 const Content = styled.ScrollView`
   width: 100%;
@@ -54,6 +107,11 @@ const Content = styled.ScrollView`
 const Username = styled.Text`
   font-weight: bold;
   font-size: 22px;
+`;
+
+const DeleteAccountButtonWrapper = styled.View`
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Container = styled.SafeAreaView`
@@ -79,7 +137,7 @@ const ArrowWrapper = styled.View`
 const Text = styled.Text`
   color: grey;
 `;
-const Signout = styled.Text`
+const RedText = styled.Text`
   color: red;
   font-weight: normal;
   font-size: 18px;
