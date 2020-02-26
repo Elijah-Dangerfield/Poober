@@ -3,8 +3,8 @@ import styled from "styled-components";
 import ColorButton from "./ColorButton";
 import { appColor } from "../constants/colors";
 const FriendsPins = props => {
-  return (
-    <Container>
+  const noFriendsState = (
+    <>
       <Text>Add friends to see where they drop their pins</Text>
       <AddFriendsButton>
         <ColorButton
@@ -16,8 +16,9 @@ const FriendsPins = props => {
           }}
         />
       </AddFriendsButton>
-    </Container>
+    </>
   );
+  return <Container>{noFriendsState}</Container>;
 };
 
 export default FriendsPins;

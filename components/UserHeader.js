@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import poopEmoji from "../assets/poop_emoji.png";
 export default function UserHeader(props) {
   return (
     <TouchableWrapper onPress={props.onClick}>
       <Header>
-        <ProfilePicture />
+        <ProfilePicture source={poopEmoji} />
         <UserTextWrapper>
           <Username>{props.displayName}</Username>
           <Status>Last pooped: yesterday</Status>

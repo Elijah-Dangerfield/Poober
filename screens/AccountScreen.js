@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import ColorButton from "../components/ColorButton";
 import * as user from "../api/user";
 import { Snackbar } from "react-native-paper";
-
+import poopEmoji from "../assets/poop_emoji.png";
 const mapStateToProps = state => {
   return {
     displayName: state.displayName,
@@ -66,7 +66,7 @@ const AccountView = props => {
       </ArrowWrapper>
       <Content>
         <ProfileWrapper>
-          <ProfilePicture />
+          <ProfilePicture source={poopEmoji} />
           <Username>{props.displayName}</Username>
           <Text>313 total pins</Text>
         </ProfileWrapper>
@@ -76,16 +76,6 @@ const AccountView = props => {
             props.navigation.navigate("AddFriends", { arrow: "arrow_back" });
           }}
         />
-        <DeleteAccountButtonWrapper>
-          <ColorButton
-            text="DELETE ACCOUNT"
-            loading={deleteLoading}
-            color="red"
-            onClick={() => {
-              handleDeleteAccountClick();
-            }}
-          />
-        </DeleteAccountButtonWrapper>
       </Content>
       <Snackbar
         visible={snackbar.length > 0}
@@ -96,6 +86,16 @@ const AccountView = props => {
       >
         {snackbar}
       </Snackbar>
+      <DeleteAccountButtonWrapper>
+        <ColorButton
+          text="DELETE ACCOUNT"
+          loading={deleteLoading}
+          color="red"
+          onClick={() => {
+            handleDeleteAccountClick();
+          }}
+        />
+      </DeleteAccountButtonWrapper>
     </Container>
   );
 };
@@ -111,7 +111,9 @@ const Username = styled.Text`
 `;
 
 const DeleteAccountButtonWrapper = styled.View`
-  flex-direction: column;
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
   align-items: center;
 `;
 

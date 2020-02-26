@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
-
+import poopEmoji from "../assets/poop_emoji.png";
 const Friend = props => {
   return (
     <Container>
-      <ProfilePicture></ProfilePicture>
+      <ProfilePicture source={poopEmoji} />
       <Username>Nibraas Khan</Username>
       <RemoveWrapper onPress={props.onRemove}>
         <Ionicons name="ios-close" size={38} color="red" />
