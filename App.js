@@ -1,7 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
-export default function App () {
-  return <Title>Hello</Title>
-}
+import React from "react";
+import AppNavigator from "./navigation/navigator";
+import { firebaseConfig } from "./constants/apiKeys";
+import * as firebase from "firebase";
+import { store } from "./redux/app_redux";
+import { Provider } from "react-redux";
 
-const Title = styled.Text``
+export default function App() {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  return (
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  );
+}
