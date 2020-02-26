@@ -5,21 +5,11 @@ import FriendsSection from "../components/FriendsSection";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { signout } from "../api/user";
 import { StatusBar } from "react-native";
-import { connect } from "react-redux";
 import ColorButton from "../components/ColorButton";
 import * as user from "../api/user";
 import { Snackbar } from "react-native-paper";
 import poopEmoji from "../assets/poop_emoji.png";
-const mapStateToProps = state => {
-  return {
-    displayName: state.displayName,
-    removeUserListener: state.removeUserListener
-  };
-};
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
 const AccountView = props => {
   StatusBar.setBarStyle("dark-content", true);
 
@@ -38,7 +28,7 @@ const AccountView = props => {
       .deleteAccount()
       .then(() => {
         console.log("removed user listener");
-        props.removeUserListener();
+        // TODO: remove listener
 
         setDeleteLoading(false);
         props.navigation.popToTop();
@@ -67,7 +57,7 @@ const AccountView = props => {
       <Content>
         <ProfileWrapper>
           <ProfilePicture source={poopEmoji} />
-          <Username>{props.displayName}</Username>
+          <Username>John Stamos</Username>
           <Text>313 total pins</Text>
         </ProfileWrapper>
 
@@ -99,7 +89,7 @@ const AccountView = props => {
     </Container>
   );
 };
-export default connect(mapStateToProps, mapDispatchToProps)(AccountView);
+export default AccountView;
 
 const Content = styled.ScrollView`
   width: 100%;
