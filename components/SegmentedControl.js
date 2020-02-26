@@ -7,32 +7,28 @@ import earthLight from "../assets/earth_light.png";
 import { appColor } from "../constants/colors";
 
 export default function SegmentedControl(props) {
-  const [selected, setSelected] = useState({
-    current: props.selected
-  });
+  const { selected } = props;
 
   const selectLeft = () => {
-    setSelected({ current: "left" });
     props.onClickLeft();
   };
 
   const selectRight = () => {
-    setSelected({ current: "right" });
     props.onClickRight();
   };
   return (
     <Container>
-      {selected.current === "left" ? <LeftCirlce /> : <RightCirlce />}
+      {selected === "friends" ? <LeftCirlce /> : <RightCirlce />}
       <RightButton onPress={selectRight}>
         <RightImage
           style={{ resizeMode: "contain" }}
-          source={selected.current === "right" ? earthDark : earthLight}
+          source={selected === "world" ? earthDark : earthLight}
         />
       </RightButton>
       <LeftButton onPress={selectLeft}>
         <LeftImage
           style={{ resizeMode: "contain" }}
-          source={selected.current === "left" ? personDark : personLight}
+          source={selected === "friends" ? personDark : personLight}
         />
       </LeftButton>
     </Container>

@@ -37,6 +37,7 @@ const AccountView = props => {
     user
       .deleteAccount()
       .then(() => {
+        console.log("removed user listener");
         props.removeUserListener();
 
         setDeleteLoading(false);
