@@ -10,9 +10,12 @@ const LoadingScreen = props => {
   StatusBar.setBarStyle("dark-content", true);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+    const removeListener = firebase.auth().onAuthStateChanged(user => {
       props.navigation.navigate(user ? "Main" : "Auth");
     });
+    return () => {
+      removeListener();
+    };
   }, []);
   return (
     <Container>

@@ -5,11 +5,12 @@ import { appColor } from "../constants/colors";
 import ColorButton from "../components/ColorButton";
 import ArrowButton from "../components/ArrowButton";
 import Input from "../components/FormInput";
-import { signup } from "../api/user";
 import { Snackbar } from "react-native-paper";
+import useRequests from "../api/useRequests";
 
 const RegisterScreen = props => {
   StatusBar.setBarStyle("dark-content", true);
+  const { signup } = useRequests();
 
   const [userInfo, setUserInfo] = useState({
     email: "",
@@ -82,7 +83,6 @@ const RegisterScreen = props => {
         })
         .catch(error => {
           setLoading(false);
-
           setSnackbar(error.message);
         });
     }

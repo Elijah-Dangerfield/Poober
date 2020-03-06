@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, { useState, useLayoutEffect, useRef, useEffect } from "react";
 import { View } from "react-native";
 import { StatusBar } from "react-native";
 import styled from "styled-components";
@@ -8,15 +8,23 @@ import FriendsPins from "../components/FriendsPins";
 import WorldPins from "../components/WorldPins";
 import * as user from "../api/user";
 import ViewPager from "@react-native-community/viewpager";
+import useUserStore from "../store/UserStore";
+import useRequests from "../api/useRequests";
 
 const HomeScreen = props => {
-  const [selectedView, setSelectedView] = useState("friends");
   StatusBar.setBarStyle("dark-content", true);
   let viewPagerRef = useRef();
-  useLayoutEffect(() => {
-    console.log("called watch user data from home screen");
-    const removeUserListener = user.watchUserData(props.setDisplayName);
-    props.setRemoveUserListener(removeUserListener);
+
+  const [selectedView, setSelectedView] = useState("friends");
+  const { user } = useUserStore();
+
+  const { watchUserData } = useRequests();
+
+  useEffect(() => {
+    const removeListener = watchUserData();
+    return () => {
+      removeListener();
+    };
   }, []);
 
   return (
@@ -24,7 +32,7 @@ const HomeScreen = props => {
       paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
     >
       <UserHeader
-        displayName="John Staome"
+        displayName={user.displayName}
         onClick={() => {
           props.navigation.navigate("Modal");
         }}
@@ -49,10 +57,8 @@ const HomeScreen = props => {
           const position = e.nativeEvent.position;
           if (position == 1) {
             setSelectedView("world");
-            console.log("switched to world");
           } else {
             setSelectedView("friends");
-            console.log("switched to friends");
           }
         }}
       >
