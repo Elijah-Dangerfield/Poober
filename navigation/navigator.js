@@ -8,6 +8,7 @@ import HomeScreen from "../screens/HomeScreen";
 import AccountScreen from "../screens/AccountScreen";
 import AddFriendsScreen from "../screens/AddFriendsScreen";
 import LoadingScreen from "../screens/LoadingScreen";
+import PostScreen from "../screens/PostScreen";
 
 const Auth = createStackNavigator({
   Landing: {
@@ -48,6 +49,10 @@ const Main = createStackNavigator(
     },
     AddFriends: {
       screen: AddFriendsScreen,
+      navigationOptions: { headerShown: false }
+    },
+    Post: {
+      screen: PostScreen,
       navigationOptions: { headerShown: false }
     }
   },

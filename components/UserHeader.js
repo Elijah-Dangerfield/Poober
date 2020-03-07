@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import poopEmoji from "../assets/poop_emoji.png";
+import { Ionicons } from "@expo/vector-icons";
+import { appColor } from "../constants/colors";
+
 export default function UserHeader(props) {
   return (
     <TouchableWrapper onPress={props.onClick}>
@@ -10,6 +13,13 @@ export default function UserHeader(props) {
           <Username>{props.displayName}</Username>
           <Status>Last pooped: yesterday</Status>
         </UserTextWrapper>
+        <AddPoopWrapper
+          onPress={() => {
+            props.onPost();
+          }}
+        >
+          <Ionicons name="ios-add-circle" size={48} color={appColor} />
+        </AddPoopWrapper>
       </Header>
     </TouchableWrapper>
   );
@@ -23,6 +33,11 @@ const Username = styled.Text`
   font-weight: bold;
 `;
 const UserTextWrapper = styled.View``;
+const AddPoopWrapper = styled.TouchableOpacity`
+  position: absolute;
+  right: 30px;
+`;
+
 const Status = styled.Text`
   color: grey;
 `;

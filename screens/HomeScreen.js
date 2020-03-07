@@ -6,7 +6,6 @@ import UserHeader from "../components/UserHeader";
 import SegmentedControl from "../components/SegmentedControl";
 import FriendsPins from "../components/FriendsPins";
 import WorldPins from "../components/WorldPins";
-import * as user from "../api/user";
 import ViewPager from "@react-native-community/viewpager";
 import useUserStore from "../store/UserStore";
 import useRequests from "../api/useRequests";
@@ -17,14 +16,12 @@ const HomeScreen = props => {
 
   const [selectedView, setSelectedView] = useState("friends");
   const { user } = useUserStore();
+  const { updateUser } = useRequests();
 
-  const { watchUserData } = useRequests();
+  console.log("user object is now:   \n", user);
 
   useEffect(() => {
-    const removeListener = watchUserData();
-    return () => {
-      removeListener();
-    };
+    updateUser();
   }, []);
 
   return (
@@ -35,6 +32,9 @@ const HomeScreen = props => {
         displayName={user.displayName}
         onClick={() => {
           props.navigation.navigate("Modal");
+        }}
+        onPost={() => {
+          props.navigation.push("Post");
         }}
       />
       <SegmentedControl

@@ -3,15 +3,17 @@ import styled from "styled-components";
 import ArrowButton from "../components/ArrowButton";
 import FriendsSection from "../components/FriendsSection";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { signout } from "../api/user";
 import { StatusBar } from "react-native";
 import ColorButton from "../components/ColorButton";
-import * as user from "../api/user";
 import { Snackbar } from "react-native-paper";
 import poopEmoji from "../assets/poop_emoji.png";
+import useUserStore from "../store/UserStore";
+import useRequests from "../api/useRequests";
 
 const AccountView = props => {
   StatusBar.setBarStyle("dark-content", true);
+  const { user } = useUserStore();
+  const { deleteAccount, signout } = useRequests();
 
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [snackbar, setSnackbar] = useState("");
@@ -24,14 +26,10 @@ const AccountView = props => {
   const handleDeleteAccountClick = () => {
     setDeleteLoading(true);
 
-    user
-      .deleteAccount()
+    deleteAccount()
       .then(() => {
-        console.log("removed user listener");
-        // TODO: remove listener
-
         setDeleteLoading(false);
-        props.navigation.popToTop();
+        props.navigation.navigate("Loading");
       })
       .catch(error => {
         setDeleteLoading(false);
@@ -57,7 +55,7 @@ const AccountView = props => {
       <Content>
         <ProfileWrapper>
           <ProfilePicture source={poopEmoji} />
-          <Username>John Stamos</Username>
+          <Username>{user.displayName}</Username>
           <Text>313 total pins</Text>
         </ProfileWrapper>
 

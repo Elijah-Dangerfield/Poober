@@ -4,7 +4,9 @@ import {
   watchUserData,
   signin,
   signout,
-  deleteAccount
+  deleteAccount,
+  getUser,
+  submitPost
 } from "./requests";
 
 const useRequests = () => {
@@ -12,12 +14,19 @@ const useRequests = () => {
 
   let useRequests = {
     signup: signup,
-    watchUserData: () => {
-      return watchUserData(userStore);
-    },
     signin: signin,
     signout: signout,
-    deleteAccount: deleteAccount
+    deleteAccount: deleteAccount,
+    submitPost: submitPost,
+    updateUser: () => {
+      getUser()
+        .then(user => {
+          userStore.setUser({ ...useUserStore.user, ...user });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   };
 
   return useRequests;

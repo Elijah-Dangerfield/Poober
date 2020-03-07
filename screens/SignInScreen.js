@@ -4,13 +4,14 @@ import { appColor } from "../constants/colors";
 import ColorButton from "../components/ColorButton";
 import ArrowButton from "../components/ArrowButton";
 import Input from "../components/FormInput";
-import { signin } from "../api/user";
+import useRequests from "../api/useRequests";
 import { StatusBar } from "react-native";
 import { Snackbar } from "react-native-paper";
 
 const SignInScreen = props => {
   StatusBar.setBarStyle("dark-content", true);
   const [snackbar, setSnackbar] = useState("");
+  const { signin } = useRequests();
 
   const [userInfo, setUserInfo] = useState({
     email: "",
