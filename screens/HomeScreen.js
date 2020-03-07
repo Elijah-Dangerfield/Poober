@@ -15,15 +15,29 @@ const HomeScreen = props => {
   let viewPagerRef = useRef();
 
   const [selectedView, setSelectedView] = useState("friends");
-  const { user } = useUserStore();
-  const { updateUser } = useRequests();
+  const [friendsPins, setFriendsPins] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  console.log("user object is now:   \n", user);
+  const { user } = useUserStore();
+  const { updateUser, getFriendsPosts } = useRequests();
+
+  console.log("loaded home");
 
   useEffect(() => {
     updateUser();
+    refreshFriendsPins();
   }, []);
 
+  function refreshFriendsPins() {
+    setRefreshing(true);
+    getFriendsPosts()
+      .then(({ posts }) => {
+        setFriendsPins(posts);
+      })
+      .finally(() => {
+        setRefreshing(false);
+      });
+  }
   return (
     <Container
       paddingTop={StatusBar.currentHeight ? StatusBar.currentHeight : 0}
@@ -64,6 +78,9 @@ const HomeScreen = props => {
       >
         <View key="0">
           <FriendsPins
+            refreshing={refreshing}
+            onRefresh={refreshFriendsPins}
+            data={friendsPins}
             navigateToFriends={() => {
               props.navigation.push("AddFriends", { arrow: "arrow_down" });
             }}

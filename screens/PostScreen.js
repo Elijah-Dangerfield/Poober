@@ -6,6 +6,7 @@ import { AirbnbRating } from "react-native-ratings";
 import { appColor } from "../constants/colors";
 import ColorButton from "../components/ColorButton";
 import useRequests from "../api/useRequests";
+import useUserStore from "../store/UserStore";
 
 const PostScreen = props => {
   StatusBar.setBarStyle("dark-content", true);
@@ -15,6 +16,7 @@ const PostScreen = props => {
   const [rating, setRating] = useState(defaultRating);
   const [postText, setPostText] = useState("");
   const [loading, setLoading] = useState(false);
+  const { displayName } = useUserStore().user;
 
   function onRate(rating) {
     setRating(rating);
@@ -24,7 +26,7 @@ const PostScreen = props => {
     setLoading(true);
     const timeStamp = new Date().toUTCString();
 
-    submitPost({ postText, rating, timeStamp })
+    submitPost({ postText, rating, timeStamp, displayName })
       .then(() => {
         props.navigation.pop();
       })

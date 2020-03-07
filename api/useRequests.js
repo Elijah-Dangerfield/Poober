@@ -1,7 +1,7 @@
 import useUserStore from "../store/UserStore";
 import {
   signup,
-  watchUserData,
+  getFriendsPosts,
   signin,
   signout,
   deleteAccount,
@@ -18,6 +18,7 @@ const useRequests = () => {
     signout: signout,
     deleteAccount: deleteAccount,
     submitPost: submitPost,
+    getFriendsPosts: getFriendsPosts,
     updateUser: () => {
       getUser()
         .then(user => {
