@@ -2,7 +2,6 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 
 function userReference() {
-  console.log(firebase.auth().currentUser.uid);
   return firebase
     .firestore()
     .collection("users")
@@ -10,12 +9,16 @@ function userReference() {
 }
 
 function userPostsReference() {
-  console.log(firebase.auth().currentUser.uid);
   return firebase
     .firestore()
     .collection("posts")
     .doc(firebase.auth().currentUser.uid);
 }
+
+function usersReference() {
+  return firebase.firestore().collection("users");
+}
+
 export function signin({ email, password }) {
   return firebase.auth().signInWithEmailAndPassword(email, password);
 }
@@ -27,7 +30,8 @@ export function signup({ email, password, displayName }) {
       .createUserWithEmailAndPassword(email, password)
       .then(_ => {
         let userData = {
-          displayName: displayName
+          displayName: displayName,
+          friends: {}
         };
         userPostsReference().set({ posts: [] });
         userReference()
@@ -52,6 +56,8 @@ export function signout() {
 
 export function deleteAccount() {
   const user = firebase.auth().currentUser;
+  userPostsReference().delete();
+  userReference().delete();
   return user.delete();
 }
 
@@ -66,6 +72,31 @@ export function submitPost(post) {
       })
       .catch(e => {
         reject(e);
+      });
+  });
+
+  return result;
+}
+
+export function searchForUser(query) {
+  let result = new Promise((resolve, reject) => {
+    usersReference()
+      .where("displayName", ">=", query.trim())
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log("No matching documents.");
+          resolve([]);
+        }
+        let data = [];
+        snapshot.forEach(doc => {
+          data.push({ ...doc.data(), id: doc.id });
+        });
+
+        resolve(data);
+      })
+      .catch(err => {
+        reject(err);
       });
   });
 
@@ -91,6 +122,24 @@ export function getFriendsPosts() {
   return result;
 }
 
+export function submitFriendRequest({ currentUser, newFriend }) {
+  let newFriendObject = {};
+  newFriendObject["friends." + newFriend] = true;
+  let result = new Promise((resolve, reject) => {
+    usersReference()
+      .doc(currentUser)
+      .update(newFriendObject)
+      .then(() => {
+        resolve();
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+
+  return result;
+}
+
 export function getUser() {
   let result = new Promise((resolve, reject) => {
     userReference()
@@ -100,7 +149,7 @@ export function getUser() {
           console.log("no such docuemnt");
           reject("Unable to locate user record at this time");
         } else {
-          resolve(doc.data());
+          resolve({ ...doc.data(), uid: doc.id });
         }
       })
       .catch(e => {

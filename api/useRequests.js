@@ -6,7 +6,9 @@ import {
   signout,
   deleteAccount,
   getUser,
-  submitPost
+  submitPost,
+  searchForUser,
+  submitFriendRequest
 } from "./requests";
 
 const useRequests = () => {
@@ -19,6 +21,8 @@ const useRequests = () => {
     deleteAccount: deleteAccount,
     submitPost: submitPost,
     getFriendsPosts: getFriendsPosts,
+    searchForUser: searchForUser,
+    submitFriendRequest: submitFriendRequest,
     updateUser: () => {
       getUser()
         .then(user => {

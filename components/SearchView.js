@@ -11,6 +11,7 @@ const SearchView = props => {
   const cancelButton = isEditing ? (
     <TouchableOpacity
       onPress={() => {
+        props.onCancel();
         Keyboard.dismiss();
       }}
     >
@@ -24,6 +25,7 @@ const SearchView = props => {
     searchTerm.length > 0 ? (
       <TouchableOpacity
         onPress={() => {
+          props.onClear();
           setSearchTerm("");
         }}
       >
@@ -57,8 +59,13 @@ const SearchView = props => {
             setIsEditing(false);
           }}
           onFocus={() => {
+            props.onStartTyping();
             setIsEditing(true);
           }}
+          onSubmitEditing={() => {
+            props.onSearch(searchTerm);
+          }}
+          returnKeyType="search"
           value={searchTerm}
           secureTextEntry={props.password ? true : false}
           onChangeText={setSearchTerm}
