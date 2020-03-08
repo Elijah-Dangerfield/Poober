@@ -5,7 +5,7 @@ import {
   signin,
   signout,
   deleteAccount,
-  getUser,
+  listenToUserData,
   submitPost,
   searchForUser,
   submitFriendRequest
@@ -20,17 +20,14 @@ const useRequests = () => {
     signout: signout,
     deleteAccount: deleteAccount,
     submitPost: submitPost,
-    getFriendsPosts: getFriendsPosts,
+    getFriendsPosts: () => {
+      console.log("Keys: " + Object.keys(userStore.user.friends));
+      return getFriendsPosts(Object.keys(userStore.user.friends));
+    },
     searchForUser: searchForUser,
     submitFriendRequest: submitFriendRequest,
-    updateUser: () => {
-      getUser()
-        .then(user => {
-          userStore.setUser({ ...useUserStore.user, ...user });
-        })
-        .catch(e => {
-          console.log(e);
-        });
+    listenToUserData: () => {
+      return listenToUserData(userStore);
     }
   };
 

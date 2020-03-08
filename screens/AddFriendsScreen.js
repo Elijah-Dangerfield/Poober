@@ -58,13 +58,13 @@ const AddFriends = props => {
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <User
-              isCurrentUser={item.id == user.uid}
-              isFriend={user.friends[item.id] ? true : false}
+              isCurrentUser={item.id === user.uid}
+              isFriend={user.friends[item.id] === undefined ? false : true}
               username={item.displayName}
               onRequestFriend={() => {
                 return submitFriendRequest({
                   currentUser: user.uid,
-                  newFriend: item.id
+                  newFriend: { id: item.id, displayName: item.displayName }
                 });
               }}
             />

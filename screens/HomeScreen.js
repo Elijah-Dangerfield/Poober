@@ -19,21 +19,25 @@ const HomeScreen = props => {
   const [refreshing, setRefreshing] = useState(false);
 
   const { user } = useUserStore();
-  const { updateUser, getFriendsPosts } = useRequests();
-
-  console.log("loaded home");
+  const { getFriendsPosts, listenToUserData } = useRequests();
 
   useEffect(() => {
-    updateUser();
+    const removeListener = listenToUserData();
     refreshFriendsPins();
+
+    return () => {
+      removeListener();
+    };
   }, []);
 
   function refreshFriendsPins() {
     setRefreshing(true);
     getFriendsPosts()
-      .then(({ posts }) => {
-        setFriendsPins(posts);
+      .then(data => {
+        setFriendsPins(data);
+        console.log(data);
       })
+      .catch(() => {})
       .finally(() => {
         setRefreshing(false);
       });
@@ -78,6 +82,7 @@ const HomeScreen = props => {
       >
         <View key="0">
           <FriendsPins
+            hasFriends={Object.keys(user.friends).length > 1 ? true : false}
             refreshing={refreshing}
             onRefresh={refreshFriendsPins}
             data={friendsPins}

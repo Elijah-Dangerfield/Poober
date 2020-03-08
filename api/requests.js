@@ -19,6 +19,10 @@ function usersReference() {
   return firebase.firestore().collection("users");
 }
 
+function postsReference() {
+  return firebase.firestore().collection("posts");
+}
+
 export function signin({ email, password }) {
   return firebase.auth().signInWithEmailAndPassword(email, password);
 }
@@ -28,12 +32,15 @@ export function signup({ email, password, displayName }) {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(_ => {
+      .then(auth => {
+        let friendObject = {};
+        friendObject[auth.user.uid] = displayName;
         let userData = {
           displayName: displayName,
-          friends: {}
+          friends: friendObject
         };
-        userPostsReference().set({ posts: [] });
+
+        userPostsReference().set({ uid: auth.user.uid, posts: [] }); // launches async
         userReference()
           .set(userData)
           .then(() => {
@@ -81,7 +88,7 @@ export function submitPost(post) {
 export function searchForUser(query) {
   let result = new Promise((resolve, reject) => {
     usersReference()
-      .where("displayName", ">=", query.trim())
+      .where("displayName", "==", query.trim())
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -103,19 +110,43 @@ export function searchForUser(query) {
   return result;
 }
 
-export function getFriendsPosts() {
+export function listenToUserData(userStore) {
+  const unsub = userReference().onSnapshot(
+    snapshot => {
+      let user = snapshot.data();
+      userStore.setUser({ ...userStore.user, ...user });
+    },
+    err => {
+      console.log("error listening to user updates: " + err);
+    }
+  );
+
+  return unsub;
+}
+
+export function getFriendsPosts(friends) {
+  console.log({ friends });
   let result = new Promise((resolve, reject) => {
-    userPostsReference()
+    if (friends.length === 0) reject("friends length 0");
+
+    postsReference()
+      .where("uid", "in", friends)
       .get()
-      .then(doc => {
-        if (!doc.exists) {
-          reject("Unable to locate user record at this time");
-        } else {
-          resolve(doc.data());
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log("No matching documents.");
+          resolve([]);
         }
+        let data = [];
+        snapshot.forEach(doc => {
+          data = data.concat(doc.data().posts);
+        });
+
+        resolve(data);
       })
       .catch(e => {
-        reject(e);
+        console.log(e);
+        reject(err);
       });
   });
 
@@ -124,7 +155,7 @@ export function getFriendsPosts() {
 
 export function submitFriendRequest({ currentUser, newFriend }) {
   let newFriendObject = {};
-  newFriendObject["friends." + newFriend] = true;
+  newFriendObject["friends." + newFriend.id] = newFriend.displayName;
   let result = new Promise((resolve, reject) => {
     usersReference()
       .doc(currentUser)

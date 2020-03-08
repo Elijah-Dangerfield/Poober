@@ -40,7 +40,9 @@ const FriendsPins = props => {
       />
     </>
   );
-  return <Container>{props.data ? friendsState : noFriendsState}</Container>;
+  return (
+    <Container>{props.hasFriends ? friendsState : noFriendsState}</Container>
+  );
 };
 
 export default FriendsPins;
@@ -55,28 +57,3 @@ const Container = styled.View`
   width: 100%;
   align-items: center;
 `;
-
-const fakeData = [
-  {
-    rating: "5",
-    username: "Nibraas Khan",
-    text:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere neque nec elementum sagittis. Quisque et purus eget leo maximus fermentum. Morbi maximus pur"
-  },
-  {
-    rating: "5",
-    username: "Elijah Dangerfield",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  },
-  {
-    rating: "5",
-    username: "Nibraas Khan",
-    text: "Quisque et purus eget leo maximus fermentum. Morbi maximus pur"
-  },
-  {
-    rating: "2",
-    username: "Nibraas Khan",
-    text:
-      "In posuere neque nec elementum sagittis. Quisque et purus eget leo maximus fermentum. Morbi maximus pur"
-  }
-];
